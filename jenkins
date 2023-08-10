@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        docker {
+            image 'python:3.9' // Use the Python 3.9 Docker image as the build agent
+            args '-u root'    // Run the Docker container as root
+        }
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from GitHub repository
+                git 'https://github.com/ali-057/python'
+            }
+        }
+        
+        stage('Build and Run Python Script') {
+            steps {
+                script {
+                    // Run the Python script
+                    sh 'python hello.py'
+                }
+            }
+        }
+    }
+}
